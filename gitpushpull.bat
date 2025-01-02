@@ -1,5 +1,5 @@
 @echo off
-cd "G:/My Drive/Methods/ML_R"
+cd "G:/My Drive/Methods/ML_R" 
 
 REM Check if the folder is already a Git repository
 if not exist .git (
@@ -18,8 +18,14 @@ if errorlevel 1 (
     echo Remote origin already exists.
 )
 
-git pull origin main --allow-unrelated-histories
+REM Make an initial commit if none exists
 git add .
-git commit -m "Automated commit"
-git push origin main
+git commit -m "Initial commit" 2>nul || echo Commit already exists.
+
+REM Ensure the branch is named 'master'
+git branch -M master
+
+REM Pull and push
+git pull origin master --allow-unrelated-histories
+git push origin master
 pause
